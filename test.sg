@@ -1,0 +1,15 @@
+const PI = 3.14159265358979323846; // pi
+const DIM = 101; // number of mesh points
+const DX = 2.0*PI/(DIM-1); // mesh spacing (cm)
+var x[DIM], V[DIM], E[DIM];
+
+equ E[i=0] -> E[i] = -(V[i+1]-V[i] ) /(1.0*DX);
+equ E[i=1..DIM-2] -> E[i] = -(V[i+1]-V[i-1])/(2.0*DX);
+equ E[i=DIM-1] -> E[i] = -(V[i] -V[i-1])/(1.0*DX);
+
+begin main
+	assign x[i=0..DIM-1] = i*DX;
+	assign V[i=0..DIM-1] = cos(x[i]);
+	solve; 
+	write;
+end
